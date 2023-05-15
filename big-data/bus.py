@@ -140,4 +140,8 @@ def getRoutes(city: str, stopName: str = None, routeName: str = None) -> str:
 
 def get_route_info(self, city: str, routeUID: str, routeName: str, direction: typing.Union[int, str], datetime: dt.datetime, day: int = 60) -> str:
     data = explorer.get_route_info(city, routeUID, routeName, direction, datetime, day)
-    return json.dumps(data)    
+    return json.dumps(data)
+
+
+if __name__ == '__main__':
+    print(get_route_info("臺東縣", "TTT0981", "市區環線", 0))
