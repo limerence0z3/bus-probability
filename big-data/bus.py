@@ -8,6 +8,7 @@ from analyze import analyze
 import typing
 import datetime
 import time
+import pymysql
 
 cities = {
     "基隆市": "Keelung",
@@ -115,15 +116,17 @@ class BusExplorer:
         
 
         db = sql.DB()
-        collection = db.get_statuses(city, routeUID, direction, datetime, day)
-        
         try:
-            analyzer = analyze.Analyzer(collection)
-            full_predict = analyzer.predict(datetime)[0]
-        except ValueError:
-            full_predict = collection[0]["status"]
-        
-        full_predict = self.status_table[full_predict]
+            collection = db.get_statuses(city, routeUID, direction, datetime, day)
+            try:
+                analyzer = analyze.Analyzer(collection)
+                full_predict = analyzer.predict(datetime)[0]
+            except ValueError:
+                full_predict = collection[0]["status"]
+            
+            full_predict = self.status_table[full_predict]
+        except pymysql.err.ProgrammingError:
+            full_predict = "資料尚未存在，故無法預測"
         
         return {
             "time": datetime,
@@ -136,12 +139,12 @@ explorer = BusExplorer()
 
 def getRoutes(city: str, stopName: str = None, routeName: str = None) -> str:
     data = explorer.getRoutes(city, stopName, routeName)
-    return json.dumps(data)
+    return data
 
-def get_route_info(self, city: str, routeUID: str, routeName: str, direction: typing.Union[int, str], datetime: dt.datetime, day: int = 60) -> str:
+def get_route_info(city: str, routeUID: str, routeName: str, direction: typing.Union[int, str], datetime: dt.datetime, day: int = 60) -> str:
     data = explorer.get_route_info(city, routeUID, routeName, direction, datetime, day)
-    return json.dumps(data)
+    return data
 
 
 if __name__ == '__main__':
-    print(get_route_info("臺東縣", "TTT0981", "市區環線", 0))
+    print(get_route_info("臺南縣", "TTT0981", "市區環線", 0, datetime.datetime(2023, 5, 1)))
