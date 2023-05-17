@@ -4,7 +4,7 @@ import datetime as dt
 class DB:
     
     def __init__(self):
-        self.__conn = sql.connect(host = "", port = 3306, user = "", password = "", database = "bus")
+        self.__conn = sql.connect(host = "127.0.0.1", port = 3306, user = "users", password = "password", database = "bus")
         self.__cursor = self.__conn.cursor()
         self.__conn.ping(reconnect = True)
     
