@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Row, Col, Button, Input, Segmented, Radio } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
+import { Row, Col, Input, Radio } from 'antd';
 import Fa from './FA';
 import Fb from './FB';
 import 'animate.css';
@@ -14,7 +13,7 @@ const App = () => {
   };
 
   return (
-    <div className='luzcenter animate__animated animate__fadeIn' style={{ width: '36.7vh', height: '82vh', padding: '1vh', borderRadius: '20px', backgroundColor: 'whitesmoke' }}>
+    <div className='luzcenter animate__animated animate__fadeIn' style={{ width: '36.7vh', height: '82vh', padding: '1vh', borderRadius: '20px', backgroundColor: 'whitesmoke', boxShadow: '0px 2px 4px 0px rgba(0, 0, 0, 0.25)' }}>
       <Row justify={'center'} gutter={[0, 10]} >
         <Col>
           <Radio.Group
@@ -24,9 +23,8 @@ const App = () => {
               marginBottom: 16,
             }}
           >
-            <Radio.Button value="A">功能Ａ</Radio.Button>
-            <Radio.Button value="B">功能Ｂ</Radio.Button>
-            <Radio.Button value="C">功能Ｃ</Radio.Button>
+            <Radio.Button value="A">站別班次查詢</Radio.Button>
+            <Radio.Button value="B">路線查詢</Radio.Button>
           </Radio.Group>
         </Col>
         <Col span={24}>
@@ -66,7 +64,7 @@ const FSwitch = (props) => {
         <Row>
           <Col span={24}>
             <Search
-              placeholder="1"
+              placeholder="default"
               // onSearch={{}}
               size='large'
             />
